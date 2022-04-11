@@ -67,12 +67,12 @@ class Post(db.Model):
                 flash(Exception)
             self.image_path =  filename
         if not file:
-            try:
-                if(self.image_path):
+            if(self.image_path):
+                try:
                     blob_service.delete_blob(blob_container, self.image_path)
                     self.image_path = None
-            except Exception:
-                self.image_path = None
+                except Exception:
+                    self.image_path = None
 
         if new:
             db.session.add(self)
